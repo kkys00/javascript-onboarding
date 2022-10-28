@@ -1,5 +1,23 @@
 function multDigit(num) {
+  let n = num;
+  let mult = 1;
+  while (true) {
+    mult *= n % 10;
+    n = Math.floor(n / 10);
+    if (n == 0) break;
+  }
+  return mult;
+}
 
+function sumDigit(num) {
+  let n = num;
+  let sum = 0;
+  while (true) {
+    sum += n % 10;
+    n = Math.floor(n / 10);
+    if (n == 0) break;
+  }
+  return sum;
 }
 
 function problem1(pobi, crong) {
