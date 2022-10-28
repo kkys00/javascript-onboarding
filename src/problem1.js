@@ -20,6 +20,10 @@ function sumDigit(num) {
   return sum;
 }
 
+function getMax(arr) {
+  return Math.max(multDigit(arr[0]), multDigit(arr[1]), sumDigit(arr[0]), sumDigit(arr[1]));
+}
+
 function problem1(pobi, crong) {
   if (pobi.length != 2) return -1
   if (crong.length != 2) return -1
@@ -27,6 +31,13 @@ function problem1(pobi, crong) {
   if (crong[1] - crong[0] != 1) return -1
 
   let answer;
+
+  const maxPobi = getMax(pobi);
+  const maxCrong = getMax(crong);
+
+  if (maxPobi === maxCrong) return 0;
+  else if (maxPobi > maxCrong) return 1;
+  else if (maxPobi < maxCrong) return 2;
 
   return answer;
 }
