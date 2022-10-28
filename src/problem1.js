@@ -35,9 +35,9 @@ function problem1(pobi, crong) {
   const maxPobi = getMax(pobi);
   const maxCrong = getMax(crong);
 
-  if (maxPobi === maxCrong) return 0;
-  else if (maxPobi > maxCrong) return 1;
-  else if (maxPobi < maxCrong) return 2;
+  if (maxPobi === maxCrong) answer = 0;
+  else if (maxPobi > maxCrong) answer = 1;
+  else if (maxPobi < maxCrong) answer = 2;
 
   return answer;
 }
