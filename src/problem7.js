@@ -1,3 +1,9 @@
+function createNewCandidate(hisFriend) {
+  return {
+    friends: [hisFriend],
+    score: 0,
+  }
+}
 
 function compareStringAscending(a, b) {
   if (a < b) return -1;
@@ -12,28 +18,19 @@ function problem7(user, friends, visitors) {
   };
   let recommendedCandidate = {};
 
-  //check friends
   friends.map((friend) => {
     if (userInfo.name === friend[0]) userInfo.friends.push(friend[1]);
     else if (userInfo.name === friend[1]) userInfo.friends.push(friend[0]);
     else {
-      if (!recommendedCandidate[friend[0]]) { //신규생성
-        recommendedCandidate[friend[0]] = {
-          name: friend[0],
-          friends: [friend[1]],
-          score: 0,
-        }
+      if (!recommendedCandidate[friend[0]]) {
+        recommendedCandidate[friend[0]] = createNewCandidate(friend[1]);
       }
       else {
         recommendedCandidate[friend[0]].friends.push(friend[1]);
       }
 
-      if (!recommendedCandidate[friend[1]]) { //신규생성
-        recommendedCandidate[friend[1]] = {
-          name: friend[1],
-          friends: [friend[0]],
-          score: 0,
-        }
+      if (!recommendedCandidate[friend[1]]) {
+        recommendedCandidate[friend[1]] = createNewCandidate(friend[0]);
       }
       else {
         recommendedCandidate[friend[1]].friends.push(friend[0]);
@@ -41,18 +38,16 @@ function problem7(user, friends, visitors) {
     }
   });
 
-  userInfo.friends.map((element) => {
-    let friendsOfFriend = recommendedCandidate[element].friends; //친구의 친구
-    friendsOfFriend.map((e) => {
-      recommendedCandidate[e].score += 10;
+  userInfo.friends.map((userfriend) => {
+    let friendsOfFriend = recommendedCandidate[userfriend].friends;
+    friendsOfFriend.map((friendOfFriend) => {
+      recommendedCandidate[friendOfFriend].score += 10;
     })
   })
 
-  //check visitors 
   visitors.map((visitor) => {
-    if (!recommendedCandidate[visitor]) { //신규생성
+    if (!recommendedCandidate[visitor]) {
       recommendedCandidate[visitor] = {
-        name: visitor,
         score: 1,
       }
     }
@@ -60,13 +55,10 @@ function problem7(user, friends, visitors) {
       recommendedCandidate[visitor].score++;
     }
   })
+
   let sortCandidate = [];
-  //recommendedCandidate 정렬
   for (const key in recommendedCandidate) {
-    if (userInfo.friends.includes(key)) {
-      //delete recommendedCandidate[key];
-      continue;
-    }
+    if (userInfo.friends.includes(key)) continue;
     if (recommendedCandidate[key].score > 0) sortCandidate.push(key);
   }
 
