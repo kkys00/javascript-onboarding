@@ -1,3 +1,9 @@
+
+function compareStringAscending(a, b) {
+  if (a < b) return -1;
+  else return 1;
+}
+
 function problem7(user, friends, visitors) {
   var answer = [];
   let userInfo = {
@@ -67,11 +73,10 @@ function problem7(user, friends, visitors) {
   answer = sortCandidate.sort(function (a, b) {
     const diff = recommendedCandidate[b].score - recommendedCandidate[a].score;
     if (diff === 0) {
-      if (a < b) return -1;
-      else return 1;
+      return compareStringAscending(a, b);
     }
     return diff;
-  })
+  });
 
   return answer;
 }
